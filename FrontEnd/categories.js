@@ -49,10 +49,10 @@ function displayGallery(pWorks){
         const img = document.createElement("img");
         img.src = pWorks[i].imageUrl;
         const fig = document.createElement("figure");
-        fig.innerHTML = pWorks[i].title;
+       
         
         const figCapt = document.createElement("figcaption");
-
+        figCapt.innerHTML = pWorks[i].title;
         fig.appendChild(img);
         fig.appendChild(figCapt)
         gallery.appendChild(fig);
