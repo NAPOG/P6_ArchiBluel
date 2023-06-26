@@ -7,7 +7,7 @@ if(checkuser === null) {
     let Local = await reponseL.json();
 
     //Transformation des pièces en JSON
-    const stockLocal = JSON.stringify(Local);
+    // const stockLocal = JSON.stringify(Local);
 
     //Stockage des informations dans le localStorage
     window.localStorage.setItem("Local", stockLocal);

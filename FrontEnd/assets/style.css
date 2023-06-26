@@ -85,12 +85,13 @@ h2{
 	font-size: 30px;
 	color: #1D6154
 }
+
 nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
-
 }
+
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
@@ -99,6 +100,7 @@ nav li {
 li:hover {
 	color: #B1663C;
 }
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -217,4 +219,13 @@ footer nav ul {
 .btn-trier:hover {
 	color: white;
 	background-color: #1D6154;
+}
+
+.liLogin a {
+	text-decoration: none;
+	color: black;
+}
+
+a:hover{
+	color: #B1663C;
 }

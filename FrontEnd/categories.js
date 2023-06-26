@@ -2,6 +2,7 @@
 const listFiltres = document.querySelector(".categorieslist");
 const gallery = document.querySelector(".gallery");
 
+
 //Récupération des pièces depuis l'API
 const reponse = await fetch ("http://localhost:5678/api/categories");
 let categories = await reponse.json();
