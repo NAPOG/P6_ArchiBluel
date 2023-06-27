@@ -6,8 +6,8 @@ const checkusers = window.localStorage.getItem("Local");
 //     const reponseL = await fetch("http://localhost:5678/api/users/login");
 //     let Local = await reponseL.json();
 
-//     //Transformation des pièces en JSON
-//     // const stockLocal = JSON.stringify(Local);
+     //Transformation des pièces en JSON
+       //const stockLocal = JSON.stringify(Local);
 
 //     //Stockage des informations dans le localStorage
 //     window.localStorage.setItem("Local", stockLocal);
@@ -42,9 +42,14 @@ formE.addEventListener('submit',(event)=>{
     }).then((response)=>{
         response.json()
     }).then((data)=>{
-        token = data.token;
-        //TODO enregistrer le token dans le localstorage
-        //faire la redirection faire la page
+        token = data;
+
+        //Enregistrer le token dans le localstorage
+        window.localStorage.setItem("Local", JSON.stringify({email:login,password:mdp}));
+        //Récupérer token depuis le localStorage
+        const Local = localStorage.getItem('Local');
+
+        //Redirection
         window.location.href='index.html'
     }
     ).catch((error)=>{
@@ -52,17 +57,3 @@ formE.addEventListener('submit',(event)=>{
     });
     
 })
-
-//let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1MTg3NDkzOSwiZXhwIjoxNjUxOTYxMzM5fQ.JGN1p8YIfR-M-5eQ-Ypy6Ima5cKA4VbfL2xMr2MgHm4";
-
-//Fonction pour s'identifier
-// function checkuser(login, mdp, token){
-//    if(login != token && mdp != token){
-//        alert("identifiants corrects");
-//    } else{
-//        alert("mauvais identifiants")
-//    }
-//    console.log("je passe là");
-// }
-
-//listLogin.onclick(checkuser(token));
