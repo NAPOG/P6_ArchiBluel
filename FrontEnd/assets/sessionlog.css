@@ -1,0 +1,122 @@
+.categorieslist{
+    visibility: hidden;
+}
+
+.header {
+    display: flex;
+	justify-content: space-between;
+    
+    margin-top:50%;
+}
+
+.logsession {
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 59px;
+    margin: 0;
+    gap: 30px;
+}
+
+.whitegroup {
+    background-color: white;
+    border: 1px solid white;
+    border-radius: 50px;
+    width: 216px;
+    height: 38px;
+
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.white {
+    color: white;
+}
+
+.black {
+    color:black;
+}
+
+.green {
+    color:#1D6154;
+    display: inline;
+}
+
+.edition {
+    display: flex;
+    gap: 10px;
+}
+
+.headerpos {
+    display: flex;
+}
+
+/*MODALE*/
+.superposition {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: none;
+  }
+  
+  .fenetreModale {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    z-index: 10000;
+    display: none;
+  }
+  
+  .contenuFenetreModale {
+    text-align: center;
+  }
+  
+  #fermer {
+    margin-top: 20px;
+  }
+
+/*DECO*/
+/* .modale {
+    width: 630px;
+    height: 731px; 
+    border-radius: 10px;
+    top: 660;
+    left: 405px;
+} */
+
+.boutonvert {
+    background-color: #1D6154;
+    border: 1px solid #1D6154;
+    border-radius: 50px;
+    width: 237px;
+    height: 36px;
+
+    display:flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 20px;
+}
+
+.boutonrouge {
+    color:#D65353;
+}
+
+.fa-xmark {
+    display: flex;
+    justify-content: flex-end;
+}
+  

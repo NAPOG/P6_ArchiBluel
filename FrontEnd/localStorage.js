@@ -1,32 +1,6 @@
-//Récupérer les données du localStorage
-const checkusers = window.localStorage.getItem("Local");
-
-// if(checkusers === null) {
-//     //Récupération des pièces depuis l'API
-//     const reponseL = await fetch("http://localhost:5678/api/users/login");
-//     let Local = await reponseL.json();
-
-     //Transformation des pièces en JSON
-       //const stockLocal = JSON.stringify(Local);
-
-//     //Stockage des informations dans le localStorage
-//     window.localStorage.setItem("Local", stockLocal);
-//     }else {
-//         checkusers = JSON.parse(checkusers);
-//     }
-
-    //Stock de la réponse avant traitement
-    //const id = event.target.dataset.id;
-    //const reponse = await fetch("http://localhost:5678/api/users" + id + "/login");
-
-//Création variables
-// const listLogin = document.querySelector(".liLogin");
-
-
 const formE = document.querySelector('form');
 formE.addEventListener('submit',(event)=>{
     event.preventDefault();
-
     //console.log(event.target.entries())
     const login = document.querySelector(".login").value;
     
@@ -40,20 +14,53 @@ formE.addEventListener('submit',(event)=>{
             "Content-Type":"application/json"
         }
     }).then((response)=>{
-        response.json()
+        console.log("reponse serveur",response)
+        if(response.status == 404){
+           throw new Error('Les identifiants sont incorrects')
+        }else if(response.status == 200){
+            return response.json();
+        }
+
+        
+       
     }).then((data)=>{
         token = data;
-
+        //console.log("reponse serveur",data)
         //Enregistrer le token dans le localstorage
-        window.localStorage.setItem("Local", JSON.stringify({email:login,password:mdp}));
+        window.localStorage.setItem("Local", JSON.stringify(token));
         //Récupérer token depuis le localStorage
-        const Local = localStorage.getItem('Local');
-
-        //Redirection
-        window.location.href='index.html'
-    }
-    ).catch((error)=>{
-        console.log(error)
+        window.location.href='indexlog.html';
+       
+    })
+    .catch((error)=>{
+        
+        alert("mauvais identifiants")
+        window.location.href='login.html'
     });
     
+    // checkuser(login);
 })
+
+
+//PAGE CONNECTÉE
+//Récupération des pièces depuis l'API
+const reponse = await fetch ("http://localhost:5678/api/works");
+let logworks = await reponse.json();
+
+
+//MODALE
+var bouton = document.getElementById("bouton");
+var fenetreModale = document.getElementById("fenetreModale");
+var superposition = document.getElementById("superposition");
+var fermer = document.getElementById("fermer");
+
+bouton.addEventListener("click", function() {
+  fenetreModale.style.display = "block";
+  superposition.style.display = "block";
+});
+
+fermer.addEventListener("click", function() {
+  fenetreModale.style.display = "none";
+  superposition.style.display = "none";
+});
+
