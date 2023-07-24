@@ -43,9 +43,15 @@
     color:black;
 }
 
+.placementmodif {
+    display: flex;
+    justify-content: center;
+    align-content: space-around;
+    gap: 10px;
+}
+
 .green {
     color:#1D6154;
-    display: inline;
 }
 
 .edition {
@@ -70,6 +76,7 @@
   }
   
   .fenetreModale {
+    width: 40%;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -89,13 +96,7 @@
   }
 
 /*DECO*/
-/* .modale {
-    width: 630px;
-    height: 731px; 
-    border-radius: 10px;
-    top: 660;
-    left: 405px;
-} */
+
 
 .boutonvert {
     background-color: #1D6154;
@@ -103,11 +104,9 @@
     border-radius: 50px;
     width: 237px;
     height: 36px;
-
     display:flex;
     align-items: center;
     justify-content: center;
-
     margin-bottom: 20px;
 }
 
@@ -118,5 +117,31 @@
 .fa-xmark {
     display: flex;
     justify-content: flex-end;
+}
+
+.galleryModal {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-column-gap: 20px;
+	grid-row-gap: 20px;
+}
+
+.galleryModal img {
+	width: 70%;
+}
+
+.garbage::after {
+    font-family: 'Font Awesome\ 5 Free';
+    content: "\f2ed";
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.figure {
+    display: flex;
+    align-items: flex-end;
+    position: relative;
 }
   

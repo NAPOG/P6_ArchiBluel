@@ -2,8 +2,7 @@ const formE = document.querySelector('form');
 formE.addEventListener('submit',(event)=>{
     event.preventDefault();
     //console.log(event.target.entries())
-    const login = document.querySelector(".login").value;
-    
+    const login = document.querySelector(".login").value;    
     const mdp = document.querySelector(".mdp").value;
     let token = '';
 
@@ -19,9 +18,9 @@ formE.addEventListener('submit',(event)=>{
            throw new Error('Les identifiants sont incorrects')
         }else if(response.status == 200){
             return response.json();
-        }
-
-        
+        }else if(response.status == 401){
+            throw new Error('Les identifiants sont incorrects')
+        }      
        
     }).then((data)=>{
         token = data;
@@ -34,33 +33,10 @@ formE.addEventListener('submit',(event)=>{
     })
     .catch((error)=>{
         
-        alert("mauvais identifiants")
-        window.location.href='login.html'
+        alert("mauvais identifiants");
+        //TODO afficher les message d'erreur sur le formulaire
+        //window.location.href='login.html'
     });
     
     // checkuser(login);
 })
-
-
-//PAGE CONNECTÉE
-//Récupération des pièces depuis l'API
-const reponse = await fetch ("http://localhost:5678/api/works");
-let logworks = await reponse.json();
-
-
-//MODALE
-var bouton = document.getElementById("bouton");
-var fenetreModale = document.getElementById("fenetreModale");
-var superposition = document.getElementById("superposition");
-var fermer = document.getElementById("fermer");
-
-bouton.addEventListener("click", function() {
-  fenetreModale.style.display = "block";
-  superposition.style.display = "block";
-});
-
-fermer.addEventListener("click", function() {
-  fenetreModale.style.display = "none";
-  superposition.style.display = "none";
-});
-
