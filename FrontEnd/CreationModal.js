@@ -19,4 +19,3 @@ fermer.addEventListener("click", function() {
   fenetreModale.style.display = "none";
   superposition.style.display = "none";
 });
-

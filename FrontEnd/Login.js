@@ -24,7 +24,6 @@ formE.addEventListener('submit',(event)=>{
        
     }).then((data)=>{
         token = data;
-        //console.log("reponse serveur",data)
         //Enregistrer le token dans le localstorage
         window.localStorage.setItem("Local", JSON.stringify(token));
         //Récupérer token depuis le localStorage
@@ -34,9 +33,6 @@ formE.addEventListener('submit',(event)=>{
     .catch((error)=>{
         
         alert("mauvais identifiants");
-        //TODO afficher les message d'erreur sur le formulaire
-        //window.location.href='login.html'
     });
     
-    // checkuser(login);
 })

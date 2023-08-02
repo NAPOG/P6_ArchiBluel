@@ -76,38 +76,45 @@
   }
   
   .fenetreModale {
-    width: 40%;
+    width: 35%;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: white;
+    border-radius: 10px;
     padding: 20px;
     z-index: 10000;
     display: none;
+    overflow: auto;
   }
   
   .contenuFenetreModale {
-    text-align: center;
+    position: relative;
+    width: 100%;
+    /* width: 630px;
+    height: 670px; */
+    overflow: auto;
+    /* text-align: center; */
   }
   
   #fermer {
     margin-top: 20px;
   }
 
+
 /*DECO*/
-
-
 .boutonvert {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #1D6154;
     border: 1px solid #1D6154;
-    border-radius: 50px;
-    width: 237px;
+    border-radius: 60px;
+    /* width: 100%; */
+    /* width: 237px;*/
     height: 36px;
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
+    margin: 20px 150px;
 }
 
 .boutonrouge {
@@ -123,12 +130,13 @@
 	width: 100%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
-	grid-column-gap: 20px;
-	grid-row-gap: 20px;
+	/* grid-column-gap: 20px;
+	grid-row-gap: 20px; */
 }
 
 .galleryModal img {
 	width: 70%;
+    /* box-sizing: border-box; */
 }
 
 .garbage::after {
@@ -139,9 +147,12 @@
     align-items: flex-end;
 }
 
+
 .figure {
     display: flex;
     align-items: flex-end;
     position: relative;
 }
   
+/*AJOUT IMAGE*/
+/*voir .contenuFenetreModale ligne 90.*/
