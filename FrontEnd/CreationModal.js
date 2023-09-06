@@ -10,6 +10,10 @@ var fenetreModale = document.getElementById("fenetreModale");
 var superposition = document.getElementById("superposition");
 var fermer = document.getElementById("fermer");
 
+
+fenetreModale.style.display = "none";
+  superposition.style.display = "none";
+
 bouton.addEventListener("click", function() {
   fenetreModale.style.display = "block";
   superposition.style.display = "block";

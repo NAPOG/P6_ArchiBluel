@@ -130,7 +130,7 @@
         }
     }
 
-
+    //const ajoutPhotoBtn = document.createElement('button');
 
 
 
@@ -141,38 +141,79 @@
         const contenteurModal = document.querySelector(".contenuFenetreModale");
         contenteurModal.innerHTML ='';
 
-        // Créer l'élément img pour afficher la photo téléchargée (optionnel)
-        const img = document.createElement('img');
-        img.style.width = '420px'; 
-        img.style.height = '169px'; 
-        img.style.objectFit = 'cover';
-        contenteurModal.appendChild(img);
+        // Créer le rectangle bleu avec ses accessoires
+        const rectImg = document.createElement('div');
+        rectImg.setAttribute('id',"rectImage");
+        rectImg.classList.add('image-container');
 
-        
+        const icon = document.createElement('i');
+        icon.classList.add('far', 'fa-image'); 
+        rectImg.appendChild(icon);
+
+        contenteurModal.appendChild(rectImg);
+
         //Titre du sélecteur 'titre'
         const titreTitre = document.createElement('p');
         titreTitre.textContent = 'Titre';
-        // titreTitre.style.alignContent = flex-end;
+        titreTitre.classList.add("TitreCss");
         contenteurModal.appendChild(titreTitre);
+
+
+
+        const labelImg = document.createElement('label');
+        labelImg.classList.add("btnLabelImg")
+        labelImg.textContent = '+ Ajouter photo';
+        labelImg.htmlFor='imgSelected'
+         // Créer l'élément input de type 'file' pour télécharger une photo
+        const inputPhoto = document.createElement('input');
+        inputPhoto.id='imgSelected'
+         inputPhoto.type = 'file';
+         inputPhoto.classList.add("addPhoto");
+
+         const ImgSize = document.createElement('p');
+         ImgSize.classList.add("ImgSize")
+         ImgSize.textContent = 'jpg, png : 4mo max'
+
+         
+         rectImg.appendChild(inputPhoto);
+         rectImg.appendChild(labelImg);
+         rectImg.appendChild(ImgSize)
+
+        // const ajoutPhotoBtn = document.createElement('button');
+        // ajoutPhotoBtn.textContent = 'Ajouter photo';
+        // ajoutPhotoBtn.classList.add("addPhoto");
+        // ajoutPhotoBtn.type = 'file';
+         
+        const img = document.createElement('img');
+        
+        rectImg.appendChild(img);
+        //rectImg.appendChild(ajoutPhotoBtn); 
+
+
+
+       
 
         //Création du sélecteur 'titre'
         const inputTitre = document.createElement('input');
-        inputTitre.type = 'text';
-        inputTitre.placeholder = 'Titre';
+        inputTitre.classList.add("SelectTitre")
+        // inputTitre.type = 'text';
+        // inputTitre.placeholder = 'Titre';
         contenteurModal.appendChild(inputTitre);
 
         // AJOUTER UN SELECTEUR A LA FENETRE CATEGORIE
             //Titre du sélecteur 'categorie'
             const titreCategorie = document.createElement('p');
             titreCategorie.textContent = 'Catégorie';
+            titreCategorie.classList.add("TitreCss");
             contenteurModal.appendChild(titreCategorie);
 
             // Créer l'élément select
             const selectCategorie = document.createElement('select');
+            selectCategorie.classList.add("SelectCategorie")
 
             // Ajouter une option par défaut (option vide ou texte explicatif)
             const defaultOption = document.createElement('option');
-            defaultOption.text = 'Sélectionner une catégorie';
+            // defaultOption.text = 'Sélectionner une catégorie';
             selectCategorie.appendChild(defaultOption);
 
             // Ajouter les options avec les ID associés
@@ -188,6 +229,12 @@
                 option.value = category.id;
                 selectCategorie.appendChild(option);
             });
+
+            const BtnValider = document.createElement('label');
+            BtnValider.classList.add("boutonvert")
+            BtnValider.textContent = 'Valider';
+            BtnValider.disabled = true;
+            BtnValider.disabled = false;
 
             // Ajouter un événement pour capturer la sélection de l'utilisateur
             selectCategorie.addEventListener('change', (event) => {
@@ -231,11 +278,10 @@
             // Ajouter le sélecteur au conteneurModal
             contenteurModal.appendChild(selectCategorie);
 
+            contenteurModal.appendChild(BtnValider);
 
-        // Créer l'élément input de type 'file' pour télécharger une photo
-        const inputPhoto = document.createElement('input');
-        inputPhoto.type = 'file';
-        contenteurModal.appendChild(inputPhoto);
+
+        
 
         // Gérer l'événement de changement de fichier pour afficher l'image sélectionnée
         inputPhoto.addEventListener('change', function(event) {
@@ -246,6 +292,9 @@
                 img.src = e.target.result;
 
                 img.style.display = 'block'; // Afficher l'image une fois qu'elle est chargée
+                img.style.height = '135px';
+                img.style.width = '150px';
+                // ICI caché le bouton pour chargé l'image et le picto.
 
                 // Créer le bouton "Valider" lorsque l'image est chargée
                 const boutonValider = document.createElement('button');
@@ -292,6 +341,104 @@
             }
             reader.readAsDataURL(file);
         });
+
+        //***
+        editSection.addEventListener("input", () => {
+            const editTitle = document.querySelector("#title");
+            const errorImg = document.getElementById("errorImg");
+            const titleError = document.querySelector("#ErrorTitleSubmit");
+            const categoryError = document.querySelector("#ErrorCategorySubmit");
+            const submitForm = document.querySelector(
+              "#editWorks > div.footerModal.editFooter > input[type=submit]"
+            );
+            iCanSubmit = false;
+            titleSelected = false;
+            categorySelected = false;
+            submitForm.style.background = " grey";
+            let category = document.querySelector("#category").value;
+            const title = editTitle.value;
+            const image = inputFile.files[0];
+            // console.log(typeof image);
+        
+            if (image === null || image === undefined) {
+              errorImg.textContent = "Veuillez selectionnez une image";
+              imageSelected = false;
+            } else if (title.length < 1) {
+              titleError.textContent = "Ajoutez un titre";
+              titleSelected = false;
+            } else if (category === "") {
+              categoryError.textContent = "Choisissez une catégorie";
+              titleError.textContent = "";
+              categorySelected = false;
+            } else {
+              //submitForm.style.background = " #1d6154";
+              titleError.textContent = "";
+              categoryError.textContent = "";
+              categorySelected = true;
+              titleSelected = true;
+              imageSelected = true;
+        
+              //iCanSubmit = true;
+            }
+            if (titleSelected && categorySelected && imageSelected) {
+              submitForm.style.background = " #1d6154";
+              iCanSubmit = true;
+            }
+          });
+        
+          addToApi.addEventListener("submit", (e) => {
+            e.preventDefault();
+            //*************************************Récupérer les valeurs INPUTs
+            if (iCanSubmit) {
+              //Récupérer image
+              const image = inputFile.files[0];
+        
+              //Récupérer Titre
+              const title = document.querySelector("#title").value;
+        
+              //Récupérer id du fetch Category depuis la liste
+              let categorySelect = document.querySelector("#category");
+              let selectedOption = categorySelect.selectedOptions[0];
+              let category = selectedOption.getAttribute("data-id");
+              category = parseInt(category);
+        
+              const formData = new FormData();
+              formData.append("image", image);
+              formData.append("title", title);
+              formData.append("category", category);
+              //console.log(formData);
+        
+              fetch(api + "works", {
+                method: "POST",
+                headers: {
+                  Accept: "application/json",
+                  Authorization: "Bearer " + token,
+                },
+                body: formData,
+              })
+                .then((response) => {
+                  if (!response.ok) {
+                    throw new Error("Ta requête POST n'est pas passé :/ ");
+                  }
+                  return response.json();
+                })
+                .then((data) => {
+                  console.log("Ta requête POST est passé :) :", data);
+                  fetchApiWorks();
+                  workDisplay();
+                  closeModal();
+                  // réinitialiser le champ inputFile sinon il envoie plusieur formData en post
+                  inputFile.value = "";
+                })
+                .catch((error) => {
+                  console.error("Error:", error);
+                  console.log("Ta requête POST n'est PAS passée :( ");
+                });
+            } else {
+              console.log("Formulaire invalide !!!");
+            }
+          });
+        //***
     }
 
     const Addboutonvert = document.querySelector(".boutonvert");
