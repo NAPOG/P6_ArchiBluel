@@ -134,6 +134,24 @@
         const contenteurModal = document.querySelector(".contenuFenetreModale");
         contenteurModal.innerHTML ='';
  
+        //Création croix
+        const CroixModale = document.createElement('i');
+        CroixModale.id="fermer";
+        CroixModale.classList.add('fa-solid');
+        CroixModale.classList.add('fa-xmark');
+        contenteurModal.appendChild(CroixModale);
+
+        //Création Flèche Retour
+        const FlecheRetour = document.createElement('i');
+        FlecheRetour.classList.add('fa-solid');
+        FlecheRetour.classList.add('fa-arrow-left');
+        contenteurModal.appendChild(FlecheRetour);
+
+        // Ajoutez un gestionnaire d'événements pour le clic sur l'icône de la flèche
+        FlecheRetour.addEventListener('click', function() {
+        window.history.back();
+        });
+
         // Créer le rectangle bleu avec ses accessoires
         const rectImg = document.createElement('div');
         rectImg.setAttribute('id',"rectImage");
@@ -300,7 +318,7 @@
                                  displayGallery(updatedWorks);
                                  displayGalleryModal(updatedWorks);
                              });
-                         // Fermer la fenêtre modale après validation (vous pouvez ajouter une fonction pour cela)
+                         // Fermer la fenêtre modale après validation
                          fenetreModale.style.display = "none";
                          superposition.style.display = "none";
                      })

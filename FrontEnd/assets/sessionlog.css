@@ -107,6 +107,10 @@ justify-content: space-between;
   margin-top: 20px;
 }
 
+.fa-arrow-left {
+  margin-bottom: 5%;
+}
+
 /*DECO*/
 .boutonvert {
   display: flex;
@@ -157,12 +161,12 @@ width: 100%;
 .garbage{
   color: white;
   position: relative;
-  right: -15%;
-  top: 16%;
+  right: 4%;
+  top: 15%;
   background-color: black;
   justify-content: flex-end;
   align-items: flex-end;
-  width: 9%;
+  width: 11%;
   margin-left: 100px;
   padding: 3px;
   border-radius: 2px;
