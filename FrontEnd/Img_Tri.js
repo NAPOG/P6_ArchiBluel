@@ -40,7 +40,7 @@
  
                 });
             }
-    }
+        }
  
     //Création des éléments images de façon dynamique pour permettre à la fonction d'au-dessus de faire le tri avec les éléments ci-dessous
     function displayGallery(pWorks){    
@@ -62,7 +62,7 @@
  
     }
  
-
+ 
 //GESTION DES IMAGES DANS LE MODAL
  
     function displayGalleryModal(pWorks){
@@ -88,15 +88,12 @@
            
                 //GARBAGE: SUPPRESSION DES IMAGES
                 imgDelete.addEventListener('click', function(e) {
-               
-               
                     fetch('http://localhost:5678/api/works/'+ e.target.id,{
                         method:'DELETE',
                         headers:{
                             "Content-Type":"application/json",
                             "Authorization": "Bearer "+JSON.parse(window.localStorage.getItem("Local")).token
-                        }
- 
+                        } 
                     }).then((responseAdd)=>{
                         if (responseAdd.ok) {
                             // Suppression réussie, maintenant mettons à jour la galerie
@@ -128,6 +125,37 @@
  
     //const ajoutPhotoBtn = document.createElement('button');
  
+function backFormualire(){
+   
+    const contenteurModal = document.querySelector(".contenuFenetreModale");
+        contenteurModal.innerHTML = `<i id="fermer" class="fa-solid fa-xmark"></i>
+        <h2>Galerie photo</h2>
+        <div id="galleryModal" class="galleryModal"></div>
+        <div class="boutonvert">
+            <p class="white">Ajouter une photo</p>
+        </div>
+        <!-- <p class="boutonvert white">Ajouter une photo</p> -->
+        <p id="deleteBoutonRouge" class="boutonrouge">Supprimer la galerie</p>`;
+        displayGalleryModal(Works);
+        const Addboutonvert = document.querySelector(".boutonvert");
+        if(Addboutonvert != null){
+        Addboutonvert.addEventListener('click', function() {
+            displayFormulaire();
+       
+        });
+        }
+ 
+        document.getElementById('fermer').addEventListener('click', ()=>{
+            fenetreModale.style.display = "none";
+                         superposition.style.display = "none";
+                     
+ 
+        })
+     
+ 
+}
+ 
+
 //CONTENU DU FORMULAIRE POUR AJOUTER UNE IMAGE
  
     function displayFormulaire(projet){
@@ -139,19 +167,25 @@
         CroixModale.id="fermer";
         CroixModale.classList.add('fa-solid');
         CroixModale.classList.add('fa-xmark');
+ 
+        CroixModale.addEventListener('click', ()=>{
+            fenetreModale.style.display = "none";
+                         superposition.style.display = "none";
+                     
+ 
+        })
         contenteurModal.appendChild(CroixModale);
-
+ 
         //Création Flèche Retour
         const FlecheRetour = document.createElement('i');
         FlecheRetour.classList.add('fa-solid');
         FlecheRetour.classList.add('fa-arrow-left');
         contenteurModal.appendChild(FlecheRetour);
-
         // Ajoutez un gestionnaire d'événements pour le clic sur l'icône de la flèche
         FlecheRetour.addEventListener('click', function() {
-        window.history.back();
+        backFormualire();
         });
-
+ 
         // Créer le rectangle bleu avec ses accessoires
         const rectImg = document.createElement('div');
         rectImg.setAttribute('id',"rectImage");
@@ -202,6 +236,13 @@
  
         //Création du sélecteur 'titre'
         const inputTitre = document.createElement('input');
+ 
+        inputTitre.addEventListener('focus',() => {
+            let titreError = document.getElementById("titreError");
+            if(titreError!=null){
+                titreError.innerText ='';
+            }
+        })
         inputTitre.classList.add("SelectTitre")
         // inputTitre.type = 'text';
         // inputTitre.placeholder = 'Titre';
@@ -245,6 +286,11 @@
             // Ajouter un événement pour capturer la sélection de l'utilisateur
             selectCategorie.addEventListener('change', (event) => {
                 const selectedCategoryId = event.target.value;
+ 
+                let titreCat = document.getElementById("titreCategorie");
+                    if(titreCat!=null){
+                        titreCat.innerText=''
+                    }
                 // saveToAPI(selectedCategoryId);
             });
  
@@ -293,6 +339,35 @@
                  // Récupérer les valeurs des champs inputTitre et selectCategorie
                  const titre = inputTitre.value;
                  const categorie = selectCategorie.value;
+               
+                 if(titre == "" ){
+                   
+                    let titreError = document.getElementById("titreError");
+                    if(titreError==null){
+                        titreError = document.createElement('span');
+                    }                    
+                    titreError.id = "titreError"
+                    titreError.innerText = "le titre est manquant";            
+                    const selecttitre = document.querySelector(".SelectTitre")
+                    titreError.style.color='red';
+                    selecttitre.insertAdjacentElement("beforebegin",titreError)
+                   
+ 
+                 }                
+                 if(categorie == ""){      
+                    let titreCat = document.getElementById("titreCategorie");
+                    if(titreCat==null){
+                        titreCat = document.createElement('span');
+                    }
+                    titreCat.id = "titreCategorie";
+                    titreCat.innerText = "la categorie est manquante"
+                    const selectCat = document.querySelector(".SelectCategorie")                    
+                    titreCat.style.color='red';
+                    selectCat.insertAdjacentElement("beforebegin",titreCat)
+ 
+                 }
+                 
+                 if(categorie != "" && titre != ""){
  
                  //Ajout au projet la nouvelle image
                      const form = new FormData();
@@ -317,16 +392,19 @@
                              .then(updatedWorks => {
                                  displayGallery(updatedWorks);
                                  displayGalleryModal(updatedWorks);
-                             });
-                         // Fermer la fenêtre modale après validation
+                                 // Fermer la fenêtre modale après validation
                          fenetreModale.style.display = "none";
                          superposition.style.display = "none";
+                             });
+                         
                      })
                      .catch(error => {
                          console.error('Erreur lors de l\'ajout du nouveau projet:', error);
                      });
+                    }
                  
              });
+           
              contenteurModal.appendChild(boutonValider);
  
             // contenteurModal.appendChild(BtnValider);
@@ -356,104 +434,7 @@ var file = null;
             }
             reader.readAsDataURL(file);
         });
- 
-        // //***
-        // editSection.addEventListener("input", () => {
-        //     const editTitle = document.querySelector("#title");
-        //     const errorImg = document.getElementById("errorImg");
-        //     const titleError = document.querySelector("#ErrorTitleSubmit");
-        //     const categoryError = document.querySelector("#ErrorCategorySubmit");
-        //     const submitForm = document.querySelector(
-        //       "#editWorks > div.footerModal.editFooter > input[type=submit]"
-        //     );
-        //     iCanSubmit = false;
-        //     titleSelected = false;
-        //     categorySelected = false;
-        //     submitForm.style.background = " grey";
-        //     let category = document.querySelector("#category").value;
-        //     const title = editTitle.value;
-        //     const image = inputFile.files[0];
-        //     // console.log(typeof image);
        
-        //     if (image === null || image === undefined) {
-        //       errorImg.textContent = "Veuillez selectionnez une image";
-        //       imageSelected = false;
-        //     } else if (title.length < 1) {
-        //       titleError.textContent = "Ajoutez un titre";
-        //       titleSelected = false;
-        //     } else if (category === "") {
-        //       categoryError.textContent = "Choisissez une catégorie";
-        //       titleError.textContent = "";
-        //       categorySelected = false;
-        //     } else {
-        //       //submitForm.style.background = " #1d6154";
-        //       titleError.textContent = "";
-        //       categoryError.textContent = "";
-        //       categorySelected = true;
-        //       titleSelected = true;
-        //       imageSelected = true;
-       
-        //       //iCanSubmit = true;
-        //     }
-        //     if (titleSelected && categorySelected && imageSelected) {
-        //       submitForm.style.background = " #1d6154";
-        //       iCanSubmit = true;
-        //     }
-        //   });
-       
-        //   addToApi.addEventListener("submit", (e) => {
-        //     e.preventDefault();
-        //     //*************************************Récupérer les valeurs INPUTs
-        //     if (iCanSubmit) {
-        //       //Récupérer image
-        //       const image = inputFile.files[0];
-       
-        //       //Récupérer Titre
-        //       const title = document.querySelector("#title").value;
-       
-        //       //Récupérer id du fetch Category depuis la liste
-        //       let categorySelect = document.querySelector("#category");
-        //       let selectedOption = categorySelect.selectedOptions[0];
-        //       let category = selectedOption.getAttribute("data-id");
-        //       category = parseInt(category);
-       
-        //       const formData = new FormData();
-        //       formData.append("image", image);
-        //       formData.append("title", title);
-        //       formData.append("category", category);
-        //       //console.log(formData);
-       
-        //       fetch(api + "works", {
-        //         method: "POST",
-        //         headers: {
-        //           Accept: "application/json",
-        //           Authorization: "Bearer " + token,
-        //         },
-        //         body: formData,
-        //       })
-        //         .then((response) => {
-        //           if (!response.ok) {
-        //             throw new Error("Ta requête POST n'est pas passé :/ ");
-        //           }
-        //           return response.json();
-        //         })
-        //         .then((data) => {
-        //           console.log("Ta requête POST est passé :) :", data);
-        //           fetchApiWorks();
-        //           workDisplay();
-        //           closeModal();
-        //           // réinitialiser le champ inputFile sinon il envoie plusieur formData en post
-        //           inputFile.value = "";
-        //         })
-        //         .catch((error) => {
-        //           console.error("Error:", error);
-        //           console.log("Ta requête POST n'est PAS passée :( ");
-        //         });
-        //     } else {
-        //       console.log("Formulaire invalide !!!");
-        //     }
-        //   });
-        // //***
     }
  
     const Addboutonvert = document.querySelector(".boutonvert");
